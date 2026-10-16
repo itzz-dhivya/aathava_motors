@@ -318,14 +318,19 @@ class _AathavaMotorsServiceTabState extends State<AathavaMotorsServiceTab> {
             ),
             const SizedBox(height: 10),
             Container(
-              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
                 boxShadow: AppColors.softShadow,
               ),
-              child: Column(
+              child: Material(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: const BorderSide(color: Color(0xFFE2E8F0)),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text('Select Service Type *', style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.bold, color: const Color(0xFF475569))),
@@ -419,6 +424,8 @@ class _AathavaMotorsServiceTabState extends State<AathavaMotorsServiceTab> {
                 ],
               ),
             ),
+          ),
+        ),
             const SizedBox(height: 24),
 
             // 4. Past Service Invoices & Bill Download
@@ -447,60 +454,65 @@ class _AathavaMotorsServiceTabState extends State<AathavaMotorsServiceTab> {
                 return Container(
                   margin: const EdgeInsets.only(bottom: 10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: const Color(0xFFE2E8F0)),
                     boxShadow: AppColors.softShadow,
                   ),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => InvoicePreviewScreen(invoice: inv)),
-                      );
-                    },
-                    leading: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF0F2B66).withValues(alpha: 0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: const Icon(Icons.receipt_long_rounded, color: Color(0xFF0F2B66), size: 20),
+                  child: Material(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      side: const BorderSide(color: Color(0xFFE2E8F0)),
                     ),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'Bill No: ${inv.invoiceNumber}',
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 13),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          CurrencyFormatter.format(inv.grandTotal),
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, color: const Color(0xFF059669), fontSize: 13),
-                        ),
-                      ],
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 2),
-                        Text('Vehicle: ${inv.vehicleNumber} • ${DateFormatter.format(inv.date)}', style: GoogleFonts.poppins(fontSize: 11, color: const Color(0xFF64748B))),
-                        Text('PAID (${inv.paymentMode.toUpperCase()})', style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.bold, color: const Color(0xFF059669))),
-                      ],
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.download_rounded, color: Color(0xFF0F2B66)),
-                      tooltip: 'Download Bill PDF',
-                      onPressed: () {
-                        final shop = context.read<SettingsProvider>().shop;
-                        PdfInvoiceService.downloadInvoice(inv, shop);
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => InvoicePreviewScreen(invoice: inv)),
+                        );
                       },
+                      leading: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF0F2B66).withValues(alpha: 0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(Icons.receipt_long_rounded, color: Color(0xFF0F2B66), size: 20),
+                      ),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Bill No: ${inv.invoiceNumber}',
+                              style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 13),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            CurrencyFormatter.format(inv.grandTotal),
+                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, color: const Color(0xFF059669), fontSize: 13),
+                          ),
+                        ],
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 2),
+                          Text('Vehicle: ${inv.vehicleNumber} • ${DateFormatter.format(inv.date)}', style: GoogleFonts.poppins(fontSize: 11, color: const Color(0xFF64748B))),
+                          Text('PAID (${inv.paymentMode.toUpperCase()})', style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.bold, color: const Color(0xFF059669))),
+                        ],
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.download_rounded, color: Color(0xFF0F2B66)),
+                        tooltip: 'Download Bill PDF',
+                        onPressed: () {
+                          final shop = context.read<SettingsProvider>().shop;
+                          PdfInvoiceService.downloadInvoice(inv, shop);
+                        },
+                      ),
                     ),
                   ),
                 );

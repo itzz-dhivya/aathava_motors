@@ -400,9 +400,13 @@ class _AathavaMotorsSettingsTabState extends State<AathavaMotorsSettingsTab> {
                     children: [
                       const Icon(Icons.access_time_rounded, color: Color(0xFF64748B), size: 16),
                       const SizedBox(width: 6),
-                      Text(
-                        'Mon - Sat: 9:00 AM - 8:30 PM | Sun: 10:00 AM - 4:00 PM',
-                        style: GoogleFonts.poppins(fontSize: 11, color: const Color(0xFF64748B)),
+                      Expanded(
+                        child: Text(
+                          'Mon - Sat: 9:00 AM - 8:30 PM | Sun: 10:00 AM - 4:00 PM',
+                          style: GoogleFonts.poppins(fontSize: 11, color: const Color(0xFF64748B)),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ],
                   ),
@@ -451,12 +455,16 @@ class _AathavaMotorsSettingsTabState extends State<AathavaMotorsSettingsTab> {
             const SizedBox(height: 8),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
                 boxShadow: AppColors.softShadow,
               ),
-              child: Column(
+              child: Material(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: const BorderSide(color: Color(0xFFE2E8F0)),
+                ),
+                child: Column(
                 children: [
                   SwitchListTile(
                     title: Text(
@@ -502,6 +510,7 @@ class _AathavaMotorsSettingsTabState extends State<AathavaMotorsSettingsTab> {
                 ],
               ),
             ),
+          ),
             const SizedBox(height: 22),
 
             // 5. PROMINENT LOGOUT BUTTON
