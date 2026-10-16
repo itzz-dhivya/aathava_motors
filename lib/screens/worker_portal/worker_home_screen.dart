@@ -487,21 +487,26 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFEE2E2),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        'HIGH PRIORITY JOB #JC-8842',
-                        style: GoogleFonts.poppins(
-                          fontSize: 10.5,
-                          fontWeight: FontWeight.bold,
-                          color: const Color(0xFFDC2626),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFEE2E2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          'HIGH PRIORITY JOB #JC-8842',
+                          style: GoogleFonts.poppins(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: const Color(0xFFDC2626),
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
+                    const SizedBox(width: 8),
                     GestureDetector(
                       onTap: _showUpdateJobStatusModal,
                       child: Container(
